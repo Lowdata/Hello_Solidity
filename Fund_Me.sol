@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-interface AggregatorV3Interface {
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+/*interface AggregatorV3Interface {
   function decimals() external view returns (uint8);
 
   function description() external view returns (string memory);
@@ -32,7 +32,7 @@ interface AggregatorV3Interface {
       uint256 updatedAt,
       uint80 answeredInRound
     );
-}
+}*/
 contract FundMe {
     //for paying 
     mapping(address => uint256) public addressToAmountFunded;
@@ -49,6 +49,19 @@ contract FundMe {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
         return priceFeed.version();
     }
+    function getPrice() public view returns(uint256){
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+        (,int256 answer,,,) = priceFeed.latestRoundData();
+        return uint256(answer);
+
+    }
+    function gretConversionRate(uint256 ethAmount) public view returns(uint256){
+        uint256 ethPrice = getPrice();
+        uint256 ethAmountUsd = (ethPrice * ethAmount )/1000000000000000000;
+        return ethAmountUsd;
+
+    }
+ 
     
 
 
