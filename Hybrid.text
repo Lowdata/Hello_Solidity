@@ -1,0 +1,4 @@
+In the ERC20 contract we built a small token with a limited supply and Tranferrablity
+Same in New.sol but using a ne library and efficient techniques
+Hybrid.sol is a combined contract of two where you will find the working of ERC20 
+and efficiency of New.sol
